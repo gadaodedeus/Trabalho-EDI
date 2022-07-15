@@ -6,16 +6,22 @@ typedef struct d{
 }date;
 
 //Avalicao
-typedef struct avali{
+typedef struct aval{
 	char nome[50];
 	char tipo;
 	date data;
 	int peso;	//De 0 a 100
 }avaliacao;
 
-typedef struct list_av{
+typedef struct elem_av{
 	avaliacao info;
-	struct list_av *prox;
+	struct elem_av *prox;
+}elem_avaliacao;
+
+typedef struct list_av{
+	elem_avaliacao* inicio;
+	elem_avaliacao* fim;
+	int qnt_elem;
 }list_avaliacao;
 
 //Aula
@@ -40,6 +46,8 @@ typedef struct alun{
 	float media_final;
 	char freq[60];	//Max 60 horas
 }aluno;
+
+
 
 typedef struct list_alun{
 	aluno info;
@@ -74,6 +82,19 @@ typedef struct prof{
 	char nome[50];
 	int qnt_disc;
 }professor;
+
+
+/////////////////////////////////////////
+
+//Func
+
+	//Criacao de structs
+date novaData();
+avaliacao novaAvaliacao();
+
+	//Print
+void printData(date);
+void printAvaliacao(avaliacao);
 
 
 
