@@ -21,7 +21,7 @@ date novaData()
 	{
 		cout<<"Ano: \n";
 		cin>>temp.ano;
-	}while(temp.ano<2012);s
+	}while(temp.ano<2012);
 
 	return temp;	
 }
