@@ -1,4 +1,5 @@
 #include "biblioTrab.h"
+#include <stdio.h>
 #include <iostream>
 #include <cstddef>
 using namespace std;
@@ -31,7 +32,7 @@ avaliacao novaAvaliacao()
 	avaliacao temp;
 	
 	cout<<"Nome: \n";
-	cin>>temp.nome;
+	gets(temp.nome);
 	cout<<"Tipo: \n";
 	cin>>temp.tipo;
 	temp.data = novaData();
@@ -41,6 +42,8 @@ avaliacao novaAvaliacao()
 		cin>>temp.peso;
 	}while(temp.peso<0 || temp.peso>100);
 	cout<<"\n\n";
+	char c = getchar();
+	
 	
 	return temp;
 }

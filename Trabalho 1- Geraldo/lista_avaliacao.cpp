@@ -4,6 +4,16 @@
 #include <stdio.h>
 using namespace std;
 
+//Novo elemento do tipo avaliacao
+elem_avaliacao* novoElemAv(avaliacao* a)
+{
+	elem_avaliacao* elem = new elem_avaliacao();
+	elem->info = *a;
+	elem->prox = NULL;
+		
+	return elem;
+}
+
 
 int Vazia(list_avaliacao* l)
 {
@@ -38,6 +48,8 @@ void addAvaliacao(list_avaliacao* l, elem_avaliacao* elem)
 		}
 	}
 }	
+
+//Print na tela
 void printListAval(list_avaliacao* l)
 {
 	if(Vazia(l))
@@ -56,6 +68,7 @@ void printListAval(list_avaliacao* l)
 	}
 }
 
+//Print no arquivo
 void printListAvalArq(list_avaliacao* l, char arqName[])
 {
 	if(Vazia(l))
@@ -82,14 +95,22 @@ void printListAvalArq(list_avaliacao* l, char arqName[])
 	}
 }	
 
-elem_avaliacao* novoElemAv(avaliacao* a)
+//Backup do arquivo
+void backupAval(list_avaliacao* l)
 {
-	elem_avaliacao* elem = new elem_avaliacao();
-	elem->info = *a;
-	elem->prox = NULL;
-		
-	return elem;
+	FILE* arq;
+	arq = fopen("teste.txt", "r");
+	while(!feof(arq))
+	{
+		avaliacao aux;	//%50[^\n] --> 50 = num max de char// input de strign com espaço
+		fscanf(arq, "%50[^\n]\n%c\n%d\n%d\n%d\n%d\n", &aux.nome,&aux.tipo,&aux.data.dia,&aux.data.mes,&aux.data.ano,&aux.peso);
+		elem_avaliacao* elem =  novoElemAv(&aux);
+		addAvaliacao(l, elem);
+	}
+	fclose(arq);
+	
 }
+
 
 
 
