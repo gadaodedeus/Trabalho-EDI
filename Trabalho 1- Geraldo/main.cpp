@@ -11,8 +11,10 @@ int main(int argc, char** argv) {
 	//FILE* arq = fopen("teste.txt", w);
 	
 	avaliacao teste1 = novaAvaliacao();
+  
 	elem_avaliacao* elem1 = new elem_avaliacao();
-	elem1 = novoElemAv(&teste1);
+	
+  elem1 = novoElemAv(&teste1);
 	addAvaliacao(avaliacoes, elem1);
 	
 	/*avaliacao teste2 = novaAvaliacao();
@@ -30,8 +32,8 @@ int main(int argc, char** argv) {
 	printListAval(avaliacoes);
 	
 	//printListAval(avaliacoes);
-	//char teste[15] = "teste.txt";
-	//printListAvalArq(avaliacoes, teste);
+	char teste[15] = "teste.txt";
+	printListAvalArq(avaliacoes, teste);
 	
 	
 	

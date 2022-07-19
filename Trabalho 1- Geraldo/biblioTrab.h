@@ -43,6 +43,7 @@ typedef struct alun{
 	char nome[50];
 	float notas[14];//10 trab + 4 provas
 	int i_notas;
+  float exame;
 	float media_final;
 	char freq[60];	//Max 60 horas
 }aluno;
@@ -67,6 +68,7 @@ typedef struct infod{
 	int carga_real;
 	float nota_aprov;	//Entre 0 e 10 (padrao 5.0)
 	int freq;		//entre 0 e 100 (padrao 70 -> calculada com base em carga_prev)
+
 	list_avaliacao *avaliacoes;
 	list_aulas *aulas;
 	list_alunos *alunos;
@@ -91,11 +93,18 @@ typedef struct prof{
 	//Criacao de structs
 date novaData();
 avaliacao novaAvaliacao();
+info_disc novaDisciplina();
+aula novoAula();
+aluno novoAluno();
+professor novoProf();
 
 	//Print
 void printData(date);
 void printAvaliacao(avaliacao);
-
+void printDisc(info_disc);
+void printAula(aula);
+void printAluno(aluno);
+void printProf(professor);
 
 
 

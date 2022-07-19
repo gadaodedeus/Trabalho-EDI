@@ -45,6 +45,7 @@ void addAvaliacao(list_avaliacao* l, elem_avaliacao* elem)
 		{
 			l->fim->prox = elem;
 			l->fim = elem;
+      l->qnt_elem++;
 		}
 	}
 }	
@@ -102,7 +103,7 @@ void backupAval(list_avaliacao* l)
 	arq = fopen("teste.txt", "r");
 	while(!feof(arq))
 	{
-		avaliacao aux;	//%50[^\n] --> 50 = num max de char// input de strign com espaço
+		avaliacao aux;	//%50[^\n] --> 50 = num max de char// input de strign com espaï¿½o
 		fscanf(arq, "%50[^\n]\n%c\n%d\n%d\n%d\n%d\n", &aux.nome,&aux.tipo,&aux.data.dia,&aux.data.mes,&aux.data.ano,&aux.peso);
 		elem_avaliacao* elem =  novoElemAv(&aux);
 		addAvaliacao(l, elem);
