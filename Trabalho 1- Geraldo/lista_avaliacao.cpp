@@ -29,29 +29,24 @@ void iniciaAval(list_avaliacao* l)
 
 void addAvaliacao(list_avaliacao* l, elem_avaliacao* elem)
 {
-	if(l->qnt_elem == 14)
-		return;
-	else
-	{
-		elem->prox = NULL;
-		if(Vazia(l))
-		{
-			l->qnt_elem++;
-			l->inicio = elem;
-			l->fim = elem;
-		}
-		
-		else
-		{
-			l->fim->prox = elem;
-			l->fim = elem;
-      l->qnt_elem++;
-		}
-	}
+  elem->prox = NULL;
+  if(Vazia(l))
+  {
+    l->qnt_elem++;
+    l->inicio = elem;
+    l->fim = elem;
+  }
+  
+  else
+  {
+    l->fim->prox = elem;
+    l->fim = elem;
+    l->qnt_elem++;
+  }
 }	
 
 //Print na tela
-void printListAval(list_avaliacao* l)
+void printListDisc(list_disciplina* l)
 {
 	if(Vazia(l))
 	{
@@ -60,17 +55,17 @@ void printListAval(list_avaliacao* l)
 		
 	else
 	{
-		elem_avaliacao* aux = l->inicio;
+		disciplina* aux = l->inicio;
 		while(aux)
 		{
-			printAvaliacao(aux->info);
+			printDisc(aux->info);
 			aux = aux->prox;
 		}
 	}
 }
 
 //Print no arquivo
-void printListAvalArq(list_avaliacao* l, char arqName[])
+void printListDiscArq(list_disciplina* l, char arqName[])
 {
 	if(Vazia(l))
 	{
@@ -81,7 +76,7 @@ void printListAvalArq(list_avaliacao* l, char arqName[])
 	{
 		FILE* arq;
 		arq = fopen(arqName, "w");
-		elem_avaliacao* aux = l->inicio;
+		disciplina* aux = l->inicio;
 		while(aux)
 		{
 			fprintf(arq, "%s\n", aux->info.nome);

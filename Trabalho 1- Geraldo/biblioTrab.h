@@ -10,7 +10,7 @@ typedef struct aval{
 	char nome[50];
 	char tipo;
 	date data;
-	int peso;	//De 0 a 100
+	int peso=50;	//De 0 a 100
 }avaliacao;
 
 typedef struct elem_av{
@@ -26,9 +26,9 @@ typedef struct list_av{
 
 //Aula
 typedef struct aul{
-	int num;	//Comeca em 1 -> 2 -> 3 ...
+	int num=0;	//Comeca em 1 -> 2 -> 3 ...
 	date data;
-	int qnt_horas;	//Padrao 2h
+	int qnt_horas=2;	//Padrao 2h
 	char conteudo[255];
 }aula;
 
@@ -38,7 +38,7 @@ typedef struct list_aul{
 }list_aulas;
 
 //Aluno
-typedef struct alun{
+typedef struct aluno{
 	int num;		//Entre 1 e 50
 	char nome[50];
 	float notas[14];//10 trab + 4 provas
@@ -64,20 +64,25 @@ typedef struct infod{
 	int qnt_alunos;	//Max 50
 	int qnt_provas;	//Max 4
 	int qnt_trab;	//Max 10
-	int carga_prev;	//Padrao 60 (max)
+	int carga_prev=60;	//Padrao 60 (max)
 	int carga_real;
-	float nota_aprov;	//Entre 0 e 10 (padrao 5.0)
-	int freq;		//entre 0 e 100 (padrao 70 -> calculada com base em carga_prev)
+	float nota_aprov=5;	//Entre 0 e 10 (padrao 5.0)
+	int freq=70;		//entre 0 e 100 (padrao 70 -> calculada com base em carga_prev)
 
 	list_avaliacao *avaliacoes;
 	list_aulas *aulas;
 	list_alunos *alunos;
 }info_disc;
 
-typedef struct listd{
+typedef struct elemd{
 	info_disc info;
-	listd *prox;
+	elemd *prox;
 }disciplina;
+
+typedef struct listd{
+  disciplina* inicio, fim;
+  int qnt;
+}list_disc;
 
 //Professor
 typedef struct prof{
@@ -105,6 +110,3 @@ void printDisc(info_disc);
 void printAula(aula);
 void printAluno(aluno);
 void printProf(professor);
-
-
-

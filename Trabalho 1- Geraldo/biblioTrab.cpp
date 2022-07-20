@@ -73,23 +73,37 @@ aula novoAluno()
   aluno temp = new aluno();
 
   cout<<"Numero do aluno: \n";
-  cin>>temp.num;
-  
+  do{
+    cin>>temp.num;
+    if (temp.num < 1 || temp.num > 50)
+      cout<<"Numero invalido, digite novamente";
+  }while(temp.num < 1 || temp.num > 50);
+    
   cout<<"Nome do aluno: \n";
   cin>>temp.nome;
 
-  cout<<"Nota em avaliacoes \n"
-    for(int i=0; i < info_disc.qnt_trab + info_disc.qnt_prov)
-    cin>>temp.
+  cout<<"Nota em avaliacoes: \n";
+    cout<<"Provas \n";
+    for(int i=0; i < info_disc.qnt_prov; i++)
+    cin>>temp.notas[i];
+
+    cout<<"Trabalhos \n";  
+    for(int i=1; i <= info_disc.qnt_trab; i++)
+    cin>>temp.notas[qnt_prov+i];
+
+  media = 
 
   if(media < info_disc.nota_aprov)
   {
-    cout<<"Nota avaliacao final \n";
+    cout<<"Nota avaliacao final: \n";
     cin>>temp.
   }
 
-  cout<<"Presencas e faltas \n";
-  cin>>
+  cout<<"Presencas e faltas: \n";
+  for(int i=0; i <= info_disc.carga_real; i++)
+  {
+    cin>>freq[i];
+  }
 
   
 }
@@ -206,7 +220,8 @@ void printDisc(info_disc d)
 	list_alunos *alunos;    
 }
 
-void printAula(aula temp){
+void printAula(aula temp)
+{
   cout<<"\nNumero de ordem: "<<temp.num;
   printData(temp.data);
   cout<<"\nQuantidade de horas associadas a aula: "<<temp.qtd_horas;
@@ -219,11 +234,14 @@ void printProf(professor p)
   cout<<"\nQuantidade de disciplinas: "<<p.qnt_disc;
 }
 
-void printAluno(aluno a){
+void printAluno(aluno a)
+{
   cout<<"\nNumero: "<<a.num;
   cout<<"\nNome: "<<a.nome;
+  cout<<"\nNota trabalhos:"<<a.notas_trab;
+  cout<<"\nNota provas:"<<a.notas_prova;
   for (int i=0; i<a.i_notas; i++)
     cout<<"\nAvaliacao "<<i+1<<":"<<a.nome[i];
-  cout<"\nNota do exame: "<<a.exame;
+    cout<"\nNota do exame: "<<a.exame;
   for (int i=0; i<)
 }
