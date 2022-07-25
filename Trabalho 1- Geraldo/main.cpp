@@ -4,12 +4,16 @@
 #include <cstddef>
 using namespace std;
 
-int main(int argc, char** argv) {
-	list_avaliacao* avaliacoes = new list_avaliacao();
-	iniciaAval(avaliacoes);
 
-  list_disc* disciplinas = new list_disc();
-  iniciaDisc(disciplinas);
+list_avaliacao* avaliacoes = new list_avaliacao();
+iniciaAval(avaliacoes);
+
+list_disc* disciplinas = new list_disc();
+//iniciaDisc(disciplinas);	//Nao existe ainda
+
+
+int main(int argc, char** argv) {
+	
 	
 	//FILE* arq = fopen("teste.txt", w);
 	
@@ -17,7 +21,7 @@ int main(int argc, char** argv) {
   
 	elem_avaliacao* elem1 = new elem_avaliacao();
 	
-  elem1 = novoElemAv(&teste1);
+  	elem1 = novoElemAv(&teste1);
 	addAvaliacao(avaliacoes, elem1);
 	
 	avaliacao teste2 = novaAvaliacao();
@@ -49,7 +53,6 @@ int main(int argc, char** argv) {
     cout<<"4: Cadastrar aluno\n";
     cout<<"5: Sair\n";
     cout<<"--------------\n";
-
     do
     {
       cin>>op;
@@ -58,7 +61,7 @@ int main(int argc, char** argv) {
     }while(op < 1 || op > 5);    
   
     if(op == 1) 
-      menuDisciplina(algebra);
+      printDisc();
 
     else if (op == 2) menuDisciplina();
 
@@ -81,7 +84,7 @@ int main(int argc, char** argv) {
       
     else 
       on = 0;
-
+      
   }
 	
 	
@@ -100,7 +103,7 @@ void menuDisciplina()
   aulas
 }
 
-void menuCadastro(){
+/*void menuCadastro(){
   cout<<"-----CADASTRAR-----\n";
   cout<<"1: Disciplina\n";
   cout<<"2: Aluno(a)\n";

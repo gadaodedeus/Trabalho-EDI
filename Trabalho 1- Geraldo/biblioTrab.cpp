@@ -53,10 +53,13 @@ aula novoAula()
 {
   
   aula temp = new aula();
-  do{
+ 
+  /*do{
     cout<<"Numero de ordem: \n";
     cin>>temp.num;
-  }while(temp.num < 1);
+  }while(temp.num < 1);*/
+  
+  cout<<"Data da aula: \n";
   temp.data = novaData();
   cout<<"Quantidade de horas associadas a aula: \n";
   cin>>temp.qtd_horas;
@@ -215,14 +218,15 @@ void printDisc(info_disc d)
 	float nota_aprov;	//Entre 0 e 10 (padrao 5.0)
 	int freq;		//entre 0 e 100 (padrao 70 -> calculada com base em carga_prev)
 
-	list_avaliacao *avaliacoes;
+	/*list_avaliacao *avaliacoes;
 	list_aulas *aulas;
-	list_alunos *alunos;    
+	list_alunos *alunos;    */
 }
 
 void printAula(aula temp)
 {
   cout<<"\nNumero de ordem: "<<temp.num;
+  cout<<"\nData: ";
   printData(temp.data);
   cout<<"\nQuantidade de horas associadas a aula: "<<temp.qtd_horas;
   cout<<"\nConteudo: "<<temp.conteudo;

@@ -5,6 +5,9 @@ typedef struct d{
 	int ano;
 }date;
 
+
+
+
 //Avalicao
 typedef struct aval{
 	char nome[50];
@@ -21,8 +24,11 @@ typedef struct elem_av{
 typedef struct list_av{
 	elem_avaliacao* inicio;
 	elem_avaliacao* fim;
-	int qnt_elem;
+	int qnt;
 }list_avaliacao;
+
+
+
 
 //Aula
 typedef struct aul{
@@ -32,10 +38,18 @@ typedef struct aul{
 	char conteudo[255];
 }aula;
 
-typedef struct list_aul{
+typedef struct elem_aul{
 	aula info;
-	struct list_aul *prox;
-}list_aulas;
+	struct elem_aul *prox;
+}elem_aula;
+
+typedef struct list_au{
+	elem_aulas *inicio, *fim;
+	int qnt;
+}list_aula;
+
+
+
 
 //Aluno
 typedef struct aluno{
@@ -48,12 +62,18 @@ typedef struct aluno{
 	char freq[60];	//Max 60 horas
 }aluno;
 
-
-
-typedef struct list_alun{
+typedef struct elem_alun{
 	aluno info;
-	struct list_alun *prox;
-}list_alunos;
+	struct elem_alun *prox;
+}elem_aluno;
+
+typedef struct list_al{
+	elem_aluno *inicio, *fim;
+	int qnt;
+}list_aluno;
+
+
+
 
 //Disciplina
 typedef struct infod{

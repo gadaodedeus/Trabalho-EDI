@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cstddef>
 #include <stdio.h>
+#include <string.h>
 using namespace std;
 
 //Novo elemento do tipo avaliacao
@@ -24,15 +25,14 @@ void iniciaAval(list_avaliacao* l)
 {
 	l->inicio = NULL;
 	l->fim = NULL;
-	l->qnt_elem = 0;
+	l->qnt = 0;
 }
 
 void addAvaliacao(list_avaliacao* l, elem_avaliacao* elem)
 {
-  elem->prox = NULL;
   if(Vazia(l))
   {
-    l->qnt_elem++;
+    l->qnt++;
     l->inicio = elem;
     l->fim = elem;
   }
@@ -41,12 +41,60 @@ void addAvaliacao(list_avaliacao* l, elem_avaliacao* elem)
   {
     l->fim->prox = elem;
     l->fim = elem;
-    l->qnt_elem++;
+    l->qnt++;
   }
 }	
 
+void removeAval(list_avaliacao* l, char nome[])
+{
+	elem_avaliacao* aux = l->inicio;
+	elem_avaliacao* ant;
+	int achou = 0;
+	
+	while(aux)
+	{
+		if(!strcmp(aux->info.nome, nome))	//ACHAR OUTRA FORMA DE COMPARAR!!!!!
+		{
+			achou = 1;
+			break;
+		}
+		ant = aux;
+		aux = aux->prox
+	}
+	
+	
+	if(achou && l->qnt == 1)
+		iniciaAval(l);
+		
+	else if(achou && aux == l->inicio)
+	{
+		l->inicio = aux->prox;
+		l->qnt--;
+		delete(aux);
+	}
+	
+	else if(achou && aux == l->fim)
+	{
+		l->fim = ant;
+		ant->prox == NULL;
+		l->qnt--;
+		delete(aux);
+	}
+	
+	else if(achou)
+	{
+		ant->prox = aux->prox;
+		l->qnt--;
+		delete(aux);
+	}
+	
+	else
+		cout<<"\nAvaliacao nao encontrada!";
+}
+
+
 //Print na tela
-void printListDisc(list_disciplina* l)
+void printListDisc(list_avaliacao* l)
 {
 	if(Vazia(l))
 	{
@@ -55,17 +103,17 @@ void printListDisc(list_disciplina* l)
 		
 	else
 	{
-		disciplina* aux = l->inicio;
+		avaliacao* aux = l->inicio;
 		while(aux)
 		{
-			printDisc(aux->info);
+			printAvaliacao(aux->info);
 			aux = aux->prox;
 		}
 	}
 }
 
 //Print no arquivo
-void printListDiscArq(list_disciplina* l, char arqName[])
+void printListAvalArq(list_avaliacao* l, char arqName[])
 {
 	if(Vazia(l))
 	{
@@ -76,7 +124,7 @@ void printListDiscArq(list_disciplina* l, char arqName[])
 	{
 		FILE* arq;
 		arq = fopen(arqName, "w");
-		disciplina* aux = l->inicio;
+		avaliacao* aux = l->inicio;
 		while(aux)
 		{
 			fprintf(arq, "%s\n", aux->info.nome);
