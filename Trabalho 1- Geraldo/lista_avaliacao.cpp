@@ -2,7 +2,6 @@
 #include <iostream>
 #include <cstddef>
 #include <stdio.h>
-#include <string.h>
 using namespace std;
 
 //Novo elemento do tipo avaliacao
@@ -53,7 +52,7 @@ void removeAval(list_avaliacao* l, char nome[])
 	
 	while(aux)
 	{
-		if(!strcmp(aux->info.nome, nome))	//ACHAR OUTRA FORMA DE COMPARAR!!!!!
+		if(compStr(aux->info.nome, nome))
 		{
 			achou = 1;
 			break;

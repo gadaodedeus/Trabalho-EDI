@@ -6,10 +6,26 @@
 #include <cstddef>
 using namespace std;
 
+//Comparacao de strings
+int compStr(char str1[], char str2[])
+{
+	int i=0;
+	while(str1[i] != '\0' && str2[i] != '\0')
+	{
+		if(str1[i] != str2[i])
+			return 0;
+		i++;
+	}
+	if((str1[i] == '\0' && str2[i] != '\0') || (str2[i] == '\0' && str1[i] != '\0'))
+		return 0;
+	
+	return 1;
+}
+
 //Cria�ao das structs
 date novaData()
 {
-	date temp;
+	date temp = new date();
 	do
 	{
 		cout<<"Dia: \n";
@@ -31,7 +47,7 @@ date novaData()
 
 avaliacao novaAvaliacao()    //ESSE AQUI
 {
-	avaliacao temp;
+	avaliacao temp = new avaliacao();
 	
 	cout<<"Nome: \n";
 	cin>>temp.nome;
@@ -64,7 +80,7 @@ aula novoAula()
   cout<<"Quantidade de horas associadas a aula: \n";
   cin>>temp.qtd_horas;
   cout<<"Conteudo: ";
-  ci>>temp.conteudo;
+  cin>>temp.conteudo;
   cout<<"\n\n";
   char c = getchar();
   

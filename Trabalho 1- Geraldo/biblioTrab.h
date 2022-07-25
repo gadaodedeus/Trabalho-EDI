@@ -130,3 +130,6 @@ void printDisc(info_disc);
 void printAula(aula);
 void printAluno(aluno);
 void printProf(professor);
+
+	//Outros
+int compStr(char str1[], char str2[]);
