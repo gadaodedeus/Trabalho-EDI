@@ -1,13 +1,13 @@
-#include "lista_avaliacao.h"
+#include "lista_aluno.h"
 #include <iostream>
 #include <cstddef>
 #include <stdio.h>
 using namespace std;
 
 //Novo elemento do tipo avaliacao
-elem_avaliacao* novoElemAv(avaliacao* a)
+elem_aluno* novoElemAluno(aluno* a)
 {
-	elem_avaliacao* elem = new elem_avaliacao();
+	elem_aluno* elem = new elem_aluno();
 	elem->info = *a;
 	elem->prox = NULL;
 		
@@ -15,19 +15,19 @@ elem_avaliacao* novoElemAv(avaliacao* a)
 }
 
 
-int Vazia(list_avaliacao* l)
+int Vazia(list_aluno* l)
 {
 	return(l->inicio == NULL);
 }
 
-void iniciaAval(list_avaliacao* l)
+void iniciaAluno(list_aluno* l)
 {
 	l->inicio = NULL;
 	l->fim = NULL;
 	l->qnt = 0;
 }
 
-void addAvaliacao(list_avaliacao* l, elem_avaliacao* elem)
+void addAluno(list_aluno* l, elem_aluno* elem)
 {
   if(Vazia(l))
   {
@@ -44,10 +44,10 @@ void addAvaliacao(list_avaliacao* l, elem_avaliacao* elem)
   }
 }	
 
-void removeAval(list_avaliacao* l, char nome[])
+void removeAluno(list_aluno* l, char nome[])
 {
-	elem_avaliacao* aux = l->inicio;
-	elem_avaliacao* ant;
+	elem_aluno* aux = l->inicio;
+	elem_aluno* ant;
 	int achou = 0;
 	
 	while(aux)
@@ -93,7 +93,7 @@ void removeAval(list_avaliacao* l, char nome[])
 
 
 //Print na tela
-void printListAval(list_avaliacao* l)
+void printListAluno(list_aluno* l)
 {
 	if(Vazia(l))
 	{
@@ -102,17 +102,17 @@ void printListAval(list_avaliacao* l)
 		
 	else
 	{
-		avaliacao* aux = l->inicio;
+		aluno* aux = l->inicio;
 		while(aux)
 		{
-			printAvaliacao(aux->info);
+			printAluno(aux->info);
 			aux = aux->prox;
 		}
 	}
 }
 
 //Print no arquivo
-void printListAvalArq(list_avaliacao* l, char arqName[])
+void printListAlunoArq(list_aluno* l, char arqName[])
 {
 	if(Vazia(l))
 	{
@@ -123,15 +123,28 @@ void printListAvalArq(list_avaliacao* l, char arqName[])
 	{
 		FILE* arq;
 		arq = fopen(arqName, "w");
-		avaliacao* aux = l->inicio;
+		aluno* aux = l->inicio;
+		int i = 0;
 		while(aux)
 		{
+			fprintf(arq, "%d\n", aux->info.num);
 			fprintf(arq, "%s\n", aux->info.nome);
-			fprintf(arq, "%c\n", aux->info.tipo);
-			fprintf(arq, "%d\n", aux->info.data.dia);
-			fprintf(arq, "%d\n", aux->info.data.mes);
-			fprintf(arq, "%d\n", aux->info.data.ano);
-			fprintf(arq, "%d\n", aux->info.peso);
+			while(aux->info.notas[i] != '\0')
+			{
+				fprintf(arq, "%f\n", aux->info.notas[i]);
+				i++;
+			}
+			fprintf(arq, "%d\n", i);
+			fprintf(arq, "%f\n", aux->info.exame);
+			fprintf(arq, "%f\n", aux->info.media_final);
+			i = 0;
+			while(freq[i] != '\0')
+			{
+				fprintf(arq, "%c\n", aux->info.freq[i]);
+				i++;
+			}
+			fprintf(arq, "%d\n", i);
+			
 			aux = aux->prox;
 		}
 		fclose(arq);
@@ -139,23 +152,22 @@ void printListAvalArq(list_avaliacao* l, char arqName[])
 }	
 
 //Backup do arquivo
-void backupAval(list_avaliacao* l)
+void backupAluno(list_avaliacao* l)
 {
 	FILE* arq;
 	arq = fopen("teste.txt", "r");
 	while(!feof(arq))
 	{
-		avaliacao aux;	//%50[^\n] --> 50 = num max de char// input de strign com espa�o
-		fscanf(arq, "%50[^\n]\n%c\n%d\n%d\n%d\n%d\n", &aux.nome,&aux.tipo,&aux.data.dia,&aux.data.mes,&aux.data.ano,&aux.peso);
+		avaliacao aux;	
+		
+		//Ver como vai fazer a leitura de vetores
+		
+		fscanf(arq, "%d\n%50[^\n]\n%c\n%d\n%d\n%d\n", &aux.nome,&aux.tipo,&aux.data.dia,&aux.data.mes,&aux.data.ano,&aux.peso);
 		elem_avaliacao* elem =  novoElemAv(&aux);
 		addAvaliacao(l, elem);
 	}
 	fclose(arq);
 	
 }
-
-
-
-
 
 

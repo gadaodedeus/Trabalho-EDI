@@ -1,0 +1,40 @@
+
+
+	MUDAR INPUT PARA STRINGS ACEITAREM ESPAÇO!!!
+
+	- novoAluno() incompleto
+
+		- info_disc.xxx nao é acessivel nessa funçao 
+
+			-> passar disciplina* como parametro
+
+			ou
+
+			-> deixar algumas informaçoes para serem preenchidas apenas na main como 
+			presença e notas
+
+
+	- novaDisc() incompleta
+
+		- avaliacoes, aulas e alunos
+
+	- printDisc() incompleta / mesma coisa da anterior
+
+	- printAluno() incompleta
+
+	- Criar funcoes de busca para todas as classes (nome e numero)
+
+	- backupAluno() incompleta / leitura de vetores
+
+
+
+
+
+
+
+
+
+
+
+
+

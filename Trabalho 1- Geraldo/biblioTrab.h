@@ -56,8 +56,8 @@ typedef struct aluno{
 	int num;		//Entre 1 e 50
 	char nome[50];
 	float notas[14];//10 trab + 4 provas
-	int i_notas;
-  float exame;
+	//int i_notas;
+  	float exame;
 	float media_final;
 	char freq[60];	//Max 60 horas
 }aluno;

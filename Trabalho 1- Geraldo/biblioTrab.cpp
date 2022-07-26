@@ -1,4 +1,3 @@
-
 #include "biblioTrab.h"
 #include <stdio.h>
 #include <cstdio>
@@ -73,7 +72,7 @@ aula novoAula()
   /*do{
     cout<<"Numero de ordem: \n";
     cin>>temp.num;
-  }while(temp.num < 1);*/
+  }while(temp.num < 1);		Segue a sequencia crescente 1, 2, 3, ...*/
   
   cout<<"Data da aula: \n";
   temp.data = novaData();
@@ -87,7 +86,7 @@ aula novoAula()
   return temp;
 }
 
-aula novoAluno()
+aluno novoAluno()
 {
   aluno temp = new aluno();
 
@@ -107,7 +106,7 @@ aula novoAluno()
     cin>>temp.notas[i];
 
     cout<<"Trabalhos \n";  
-    for(int i=1; i <= info_disc.qnt_trab; i++)
+   	 for(int i=1; i <= info_disc.qnt_trab; i++)
     cin>>temp.notas[qnt_prov+i];
 
   media = 
