@@ -28,6 +28,8 @@
 
 	- backupDisc() incompleta
 
+	- Funcoes de aluno estao com muitos problemas
+
 
 
 
