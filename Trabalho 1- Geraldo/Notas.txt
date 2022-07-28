@@ -26,6 +26,8 @@
 
 	- backupAluno() incompleta / leitura de vetores
 
+	- backupDisc() incompleta
+
 
 
 

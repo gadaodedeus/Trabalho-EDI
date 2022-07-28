@@ -1,4 +1,4 @@
-#include "biblioTrab.h"
+#include "lista_disciplina.h"
 #include <iostream>
 #include <cstddef>
 #include <stdio.h>
@@ -20,14 +20,14 @@ int Vazia(list_disciplina* l)
 	return(l->inicio == NULL);
 }
 
-void iniciaDisc(list_disciplina* l)
+void iniciaDisc(list_disc* l)
 {
 	l->inicio = NULL;
 	l->fim = NULL;
 	l->qnt_elem = 0;
 }
 
-void addDisc(list_disciplina* l, disciplina* elem)
+void addDisc(list_disc* l, disciplina* elem)
 {
 	if(l->qnt_elem == 14)
 		return;
@@ -45,13 +45,60 @@ void addDisc(list_disciplina* l, disciplina* elem)
 		{
 			l->fim->prox = elem;
 			l->fim = elem;
-      l->qnt_elem++;
+      		l->qnt_elem++;
 		}
 	}
 }	
 
+void removeDisc(list_disc * l, char codigo[])
+{
+	disciplina* aux = l->inicio;
+	disciplina* ant;
+	int achou = 0;
+	
+	while(aux)
+	{
+		if(compStr(aux->info.codigo, codigo))
+		{
+			achou = 1;
+			break;
+		}
+		ant = aux;
+		aux = aux->prox
+	}
+	
+	
+	if(achou && l->qnt == 1)
+		iniciaDisc(l);
+		
+	else if(achou && aux == l->inicio)
+	{
+		l->inicio = aux->prox;
+		l->qnt--;
+		delete(aux);
+	}
+	
+	else if(achou && aux == l->fim)
+	{
+		l->fim = ant;
+		ant->prox == NULL;
+		l->qnt--;
+		delete(aux);
+	}
+	
+	else if(achou)
+	{
+		ant->prox = aux->prox;
+		l->qnt--;
+		delete(aux);
+	}
+	
+	else
+		cout<<"\nDisciplina nao encontrada!";
+}
+
 //Print na tela
-void printListAval(list_avaliacao* l)
+void printListDisc(list_disc* l)
 {
 	if(Vazia(l))
 	{
@@ -60,17 +107,17 @@ void printListAval(list_avaliacao* l)
 		
 	else
 	{
-		elem_avaliacao* aux = l->inicio;
+		elem_disciplina* aux = l->inicio;
 		while(aux)
 		{
-			printAvaliacao(aux->info);
+			printDisc(aux->info);
 			aux = aux->prox;
 		}
 	}
 }
 
 //Print no arquivo
-void printListAvalArq(list_avaliacao* l, char arqName[])
+void printListDiscArq(list_disc* l, char arqName[])
 {
 	if(Vazia(l))
 	{
@@ -90,38 +137,41 @@ void printListAvalArq(list_avaliacao* l, char arqName[])
 			fprintf(arq, "%d\n", aux->info.semestre);
 			fprintf(arq, "%d\n", aux->info.qtd_alunos);
 			fprintf(arq, "%d\n", aux->info.qtd_provas);
-      fprintf(arq, "%d\n", aux->info.qtd_trab);
-      fprintf(arq, "%d\n", aux->info.carga_prev);
-      fprintf(arq, "%d\n", aux->info.carga_real);
-      fprintf(arq, "%f\n", aux->info.nota_aprov);
-      fprintf(arq, "%d\n", aux->info.freq);
-      int i=0;
+      		fprintf(arq, "%d\n", aux->info.qtd_trab);
+	      	fprintf(arq, "%d\n", aux->info.carga_prev);
+    	  	fprintf(arq, "%d\n", aux->info.carga_real);
+	      	fprintf(arq, "%f\n", aux->info.nota_aprov);
+    	  	fprintf(arq, "%d\n", aux->info.freq);
+      		int i=0;
       
-      avaliacao* aval = new avaliacao();
-      aval = info.avaliacoes->inicio;
-      while(i < aux->info.qnt_trab+aux->info.qnt_trab)  
-      {
-        printAvalArq(aval, arq);
-        aval = aval->prox;
-      }
+      		elem_avaliacao* aval = new avaliacao();
+	    	aval = aux->info.avaliacoes->inicio;
+    		while(i < aval->qnt)  
+      		{	
+        		printAvalArq(aval, arq);
+	    	    aval = aval->prox;
+	    	    i++;
+    	  	}
 
-      i=0;
-      aula* aulaTemp = new aula();
-      aulaTemp = info.aulas->inicio;
-      while(i < /*qntidade de aulas*/)  
-      {
-        printAulaArq(aulaTemp, arq);
-        aulaTemp = aulaTemp->prox;
-      }
+      		i=0;
+      		elem_aula* aulaTemp = new aula();
+      		aulaTemp = aux->info.aulas->inicio;
+      		while(i < aulaTemp->qnt)  
+      		{
+        		printAulaArq(aulaTemp, arq);
+        		aulaTemp = aulaTemp->prox;
+        		i++;
+      		}
 
-      i=0;
-      aluno* al = new aluno();
-      al = info.alunos->inicio;
-      while(i < aux->info.qnt_alunos)  
-      {
-        printAlunoArq(al, arq);
-        al = al->prox;
-      }
+      		i=0;
+      		elem_aluno* al = new elem_aluno();
+      		al = info.alunos->inicio;
+      		while(i < al->qnt)  
+      		{
+        		printAlunoArq(al, arq);
+        		al = al->prox;
+        		i++;
+      		}
         
        
 			aux = aux->prox;
@@ -131,7 +181,7 @@ void printListAvalArq(list_avaliacao* l, char arqName[])
 }	
 
 //Backup do arquivo
-void backupAval(list_avaliacao* l)
+/*void backupDisc(list_disc* l)
 {
 	FILE* arq;
 	arq = fopen("teste.txt", "r");
