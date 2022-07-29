@@ -120,7 +120,7 @@ date novaData();
 avaliacao novaAvaliacao();
 info_disc novaDisciplina();
 aula novoAula();
-//aluno novoAluno();
+aluno novoAluno();
 professor novoProf();
 
 	//Print
@@ -133,6 +133,7 @@ void printProf(professor);
 
 	//Outros
 int compStr(char str1[], char str2[]);
+
 //Aluno
 int VaziaAl(list_aluno*);
 void iniciaAluno(list_aluno*);
@@ -142,6 +143,10 @@ void printListAluno(list_aluno*);
 void printListAlunoArq(list_aluno*, char*);
 elem_aluno* novoElemAluno(aluno*);
 void backupAluno(list_aluno*);
+int contemAluno(list_aluno* d, char nomeAluno[]);
+elem_aluno* buscaAluno(list_aluno* l, char nomeAluno[]);
+void printRefAluno(list_aluno* l);
+
 
 //Disciplina
 disciplina* novoElemDisc(info_disc* d);
@@ -153,6 +158,8 @@ void printRefDisc(list_disc* l);
 void printListDisc(list_disc* l);
 void printListDiscArq(list_disc* l, char arqName[]);
 void backupDisc(list_disc* l);
+int contemDisc(list_disc* l, char codDisc[]);
+disciplina* buscaDisc(list_disc* l, char codDisc[]);
 
 //Aula
 elem_aula* novoElemAula(aula* info);

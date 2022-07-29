@@ -47,11 +47,29 @@ int main(int argc, char** argv) {
      
     	else if(op == 4)
     	{
-      		//temp = novoAluno();
-      		//printDisc();
-      		int i;
-      		//escolha uma disciplina
-      		//addAlunoNaDisciplina(algebra, temp); 
+    		aluno novaInfo;
+      		novaInfo = novoAluno();
+      		elem_aluno* temp = new elem_aluno();
+      		temp = novoElemAluno(&novaInfo);
+      		
+      		disciplina* discTemp = new disciplina();
+      		
+      		int flag;
+      		
+      		cout<<"\nDeseja matricular o aluno em alguma disciplina?[Sim-1/Nao-0]";
+      		cin>>flag;
+      		while(flag)
+      		{
+      			printRefDisc(disciplinas);
+				char disc[10];
+      			cout<<"\nInforme o codigo da disciplina: ";
+      			cin>>disc;
+      			discTemp = buscaDisc(disciplinas, disc);
+      			if(discTemp)
+      				addAluno(discTemp->info.alunos, temp);
+      			cout<<"\nDeseja matricular o aluno em mais alguma disciplina?[Sim-1/Nao-0]";
+      			cin>>flag;
+			}
     	}
     	
     	else if(op == 5) printListDisc(disciplinas);

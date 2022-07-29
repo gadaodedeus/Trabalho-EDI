@@ -40,12 +40,15 @@ void addAluno(list_aluno* l, elem_aluno* elem)
     l->fim = elem;
   }
   
-  else
+  else if(l->qnt<50)
   {
     l->fim->prox = elem;
     l->fim = elem;
     l->qnt++;
   }
+  
+  else
+  	cout<<"\nSala cheia!";
 }	
 
 void removeAluno(list_aluno* l, char nome[])
@@ -172,6 +175,59 @@ void backupAluno(list_avaliacao* l)
 	}
 	fclose(arq);
 	
+}
+
+int contemAluno(list_aluno* l, char nomeAluno[])
+{
+
+	if(!l->qnt)
+		return 0;
+	else
+	{
+		elem_aluno* aux = new elem_aluno();
+		aux = l->inicio;
+		
+		while(aux)
+		{
+			if(compStr(aux->info.nome, nomeAluno))
+				return 1;
+			aux = aux->prox;
+		}
+	}
+	return 0;
+}
+
+elem_aluno* buscaAluno(list_aluno* l, char nomeAluno[])
+{
+	if(contemAluno(l, nomeAluno))
+	{
+		elem_aluno* aux = new elem_aluno();
+		aux = l->inicio;
+		
+		while(aux)
+		{
+			if(compStr(aux->info.nome, nomeAluno))
+				return aux;
+			aux = aux->prox;
+		}
+	}	
+	else 
+		return NULL;
+}
+
+void printRefAluno(list_aluno* l)
+{
+	elem_aluno* aux = new elem_aluno();
+	aux = l->inicio;
+	
+	if(!VaziaAl(l))
+	{
+		while(aux)
+		{
+			cout<<"\n\t"<<aux->info.nome;
+			aux = aux->prox;
+		}		
+	}
 }
 
 /////////////////////////////////////
@@ -674,6 +730,42 @@ void printListDiscArq(list_disc* l, char arqName[])
 	
 }*/
 
+int contemDisc(list_disc* l, char codDisc[])
+{
+	if(!l->qnt)
+		return 0;
+	else
+	{
+		disciplina* aux = new disciplina();
+		aux = l->inicio;
+		while(aux)
+		{
+			if(compStr(aux->info.codigo, codDisc))
+				return 1;
+			aux = aux->prox;
+		}
+	}
+}
+
+disciplina* buscaDisc(list_disc* l, char codDisc[])
+{
+	disciplina* aux = new disciplina();
+	aux = l->inicio;
+	
+	if(contemDisc(l, codDisc))
+	{
+		while(aux)
+		{
+			if(compStr(aux->info.codigo, codDisc))
+				return aux;
+			aux = aux->prox;
+		}
+			
+	}
+	else
+		return NULL;
+}
+
 
 
 
@@ -762,7 +854,7 @@ aula novoAula()
   return *temp;
 }
 
-/*aluno novoAluno()
+aluno novoAluno()
 {
   aluno* temp = new aluno();
 
@@ -776,7 +868,7 @@ aula novoAula()
   cout<<"Nome do aluno: \n";
   cin>>temp->nome;
 
-  cout<<"Nota em avaliacoes: \n";
+  /*cout<<"Nota em avaliacoes: \n";
     cout<<"Provas \n";
     for(int i=0; i < info_disc.qnt_prov; i++)
     cin>>temp.notas[i];
@@ -798,9 +890,9 @@ aula novoAula()
   {
     cin>>freq[i];
   }
-
-  
-}*/
+*/
+  return *temp;
+}
 
 
 info_disc novaDisciplina()
@@ -858,11 +950,16 @@ info_disc novaDisciplina()
     cin>>temp->freq;
   }while(temp->freq<0 || temp->freq>100);
   
-  /*
-	list_avaliacao *avaliacoes;
-	list_aulas *aulas;
-	list_alunos *alunos;
-  */
+  
+	temp->avaliacoes = new list_avaliacao();
+	iniciaAval(temp->avaliacoes);
+	
+	temp->aulas = new list_aula();
+	iniciaAula(temp->aulas);
+	
+	temp->alunos = new list_aluno();
+	iniciaAluno(temp->alunos);
+  
   
   return *temp;
 }
@@ -899,22 +996,25 @@ void printAvaliacao(avaliacao temp)
 void printDisc(info_disc d)
 {
   cout<<"\nCodigo: "<<d.codigo;
-	cout<<"\nNome: "<<d.nome;
-	cout<<"\nAno: "<<d.ano;
-	cout<<"\nSemestre: "<<d.semestre;
-	cout<<"\nQuantidade de anos: "<<d.qnt_alunos;
-	cout<<"\nQuantidade de provas: "<<d.qnt_provas;
-	cout<<"\nQuantidade de trabalhos: "<<d.qnt_trab;
-	cout<<"\nCarga horaria prevista: "<<d.carga_prev;
-	cout<<"\nCarga horaria real: "<<d.carga_real;
+  cout<<"\n----------------------------";
+	cout<<"\n\nNome: "<<d.nome;
+	cout<<"\n\nAno: "<<d.ano;
+	cout<<"\n\nSemestre: "<<d.semestre;
+	cout<<"\n\nQuantidade de anos: "<<d.qnt_alunos;
+	cout<<"\n\nQuantidade de provas: "<<d.qnt_provas;
+	cout<<"\n\nQuantidade de trabalhos: "<<d.qnt_trab;
+	cout<<"\n\nCarga horaria prevista: "<<d.carga_prev;
+	cout<<"\n\nCarga horaria real: "<<d.carga_real;
 	float nota_aprov;	//Entre 0 e 10 (padrao 5.0)
 	int freq;		//entre 0 e 100 (padrao 70 -> calculada com base em carga_prev)
 
 	/*list_avaliacao *avaliacoes;
-	list_aulas *aulas;
-	list_alunos *alunos;    */
+	list_aulas *aulas;*/
 	
-	cout<<"\n\n"
+	cout<<"\n\nAlunos: ";
+	printRefAluno(d.alunos);
+	
+	cout<<"\n\n";
 }
 
 void printAula(aula temp)
