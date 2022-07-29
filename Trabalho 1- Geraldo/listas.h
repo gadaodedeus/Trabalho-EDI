@@ -118,7 +118,7 @@ typedef struct prof{
 	//Criacao de structs
 date novaData();
 avaliacao novaAvaliacao();
-info_disc novaDisciplina();
+info_disc novaDisciplina(list_disc* l);
 aula novoAula();
 aluno novoAluno();
 professor novoProf();

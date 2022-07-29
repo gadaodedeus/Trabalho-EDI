@@ -572,7 +572,7 @@ void iniciaDisc(list_disc* l)
 
 void addDisc(list_disc* l, disciplina* elem)
 {
-	if(l->qnt == 14)
+	if(l->qnt == 14 )
 		return;
 	else
 	{
@@ -603,6 +603,7 @@ void removeDisc(list_disc * l, char codigo[])
 	{
 		if(compStr(aux->info.codigo, codigo))
 		{
+			cout<<"\nDisciplina removida com sucesso!";
 			achou = 1;
 			break;
 		}
@@ -895,13 +896,15 @@ aluno novoAluno()
 }
 
 
-info_disc novaDisciplina()
+info_disc novaDisciplina(list_disc* l)
 {
   info_disc* temp = new info_disc();
   
-  cout<<"Codigo: \n";
-  cin>>temp->codigo;
-
+  do{
+  	cout<<"Codigo: \n";
+  	cin>>temp->codigo;
+  }while(contemDisc(l, temp->codigo));
+  
   cout<<"Nome: \n";
 	cin>>temp->nome;
 
@@ -918,12 +921,12 @@ info_disc novaDisciplina()
   do{
     cout<<"Quantidade de alunos: \n";
     cin>>temp->qnt_alunos;
-  }while(temp->qnt_alunos<0 || temp->qnt_alunos>50);
+  }while(temp->qnt_alunos<0 || temp->qnt_alunos>50);	//Apenas settar como 0
 
   do{
     cout<<"Quantidade de provas: \n";
     cin>>temp->qnt_provas;
-  }while(temp->qnt_provas>4 || temp->qnt_provas<0);
+  }while(temp->qnt_provas>4 || temp->qnt_provas<0);		
 
   do{
     cout<<"Quantidade de trabalhos: \n";
@@ -936,7 +939,7 @@ info_disc novaDisciplina()
   }while(temp->carga_prev<0 || temp->carga_prev>60);
 
   do{
-    cout<<"Carga horaria real: \n";
+    cout<<"Carga horaria real: \n";		//Apenas settar como 0
     cin>>temp->carga_real;
   }while(temp->carga_real<0 || temp->carga_real>temp->carga_prev);
 
