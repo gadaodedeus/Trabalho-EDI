@@ -30,6 +30,8 @@
 
 	- Funcoes de aluno estao com muitos problemas
 
+	- removeAval() -> buga o print quando remove o ultimo elemento
+
 
 
 

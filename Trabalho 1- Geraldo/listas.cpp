@@ -460,8 +460,8 @@ void removeAval(list_avaliacao* l, char nome[])
 	
 	else if(achou && aux == l->fim)
 	{
-		l->fim = ant;
 		ant->prox == NULL;
+		l->fim = ant;
 		l->qnt--;
 		delete(aux);
 	}
@@ -475,6 +475,17 @@ void removeAval(list_avaliacao* l, char nome[])
 	
 	else
 		cout<<"\nAvaliacao nao encontrada!";
+}
+
+void printRefAval(list_avaliacao* l)
+{
+	elem_avaliacao* aux = new elem_avaliacao();
+	aux = l->inicio;
+	while(aux)
+	{
+		cout<<" "<<aux->info.nome;
+		aux = aux->prox;
+	}
 }
 
 
@@ -715,6 +726,8 @@ void printListDiscArq(list_disc* l, char arqName[])
 	}
 }	
 
+
+
 //Backup do arquivo
 /*void backupDisc(list_disc* l)
 {
@@ -819,8 +832,12 @@ avaliacao novaAvaliacao()    //ESSE AQUI
 	
 	cout<<"Nome: \n";
 	cin>>temp->nome;
-	cout<<"Tipo: \n";
-	cin>>temp->tipo;
+	do
+	{
+		cout<<"Tipo: \n";
+		cin>>temp->tipo;
+	}while(temp->tipo != 't' && temp->tipo != 'T' && temp->tipo != 'p' && temp->tipo != 'P');
+	
 	temp->data = novaData();
 	do
 	{

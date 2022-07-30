@@ -7,12 +7,9 @@ using namespace std;
 void menuDisciplina(disciplina* disc);
 
 int main(int argc, char** argv) {
-	list_avaliacao* avaliacoes = new list_avaliacao();
-	iniciaAval(avaliacoes);
-
 	list_disc* disciplinas = new list_disc();
 	iniciaDisc(disciplinas);
-
+	
 	
 	int on = 1;
 	int op;
@@ -23,16 +20,15 @@ int main(int argc, char** argv) {
     	cout<<"2: Entrar menu da disciplina\n";
     	cout<<"3: Cadastrar disciplina\n";
     	cout<<"4: Remover disciplina\n";
-    	cout<<"5: Cadastrar aluno\n";
-    	cout<<"6: Mostrar informacoes das disciplinas\n";
-    	cout<<"7: Sair\n";
+    	cout<<"5: Mostrar informacoes das disciplinas\n";
+    	cout<<"0: Sair\n";
     	cout<<"-----------------------------\n";
     	do
     	{
       	cin>>op;
-      	if(op < 1 || op > 7)
+      	if(op < 0 || op > 5)
         	cout<<"Opcao invalida\n";
-    	}while(op < 1 || op > 7);    
+    	}while(op < 0 || op > 5);    
   
     	if(op == 1) printRefDisc(disciplinas);
 
@@ -67,38 +63,8 @@ int main(int argc, char** argv) {
     		removeDisc(disciplinas, cod);
 		}
      
-    	else if(op == 5)
-    	{
-    		aluno novaInfo;
-      		novaInfo = novoAluno();
-      		elem_aluno* temp = new elem_aluno();
-      		temp = novoElemAluno(&novaInfo);
-      		
-      		disciplina* discTemp = new disciplina();
-      		
-      		int flag;
-      		
-      		cout<<"\nDeseja matricular o aluno em alguma disciplina?[Sim-1/Nao-0]";
-      		cin>>flag;
-      		while(flag)
-      		{
-      			printRefDisc(disciplinas);
-				char disc[10];
-      			cout<<"\nInforme o codigo da disciplina: ";
-      			cin>>disc;
-      			discTemp = buscaDisc(disciplinas, disc);
-      			if(discTemp)
-      			{
-      				addAluno(discTemp->info.alunos, temp);
-      				discTemp->info.qnt_alunos++;
-			  	}
-      		
-      			cout<<"\nDeseja matricular o aluno em mais alguma disciplina?[Sim-1/Nao-0]";
-      			cin>>flag;
-			}
-    	}
     	
-    	else if(op == 6) printListDisc(disciplinas);
+    	else if(op == 5) printListDisc(disciplinas);
       
     	else on = 0;
       
@@ -120,10 +86,20 @@ void menuDisciplina(disciplina* disc)
 	  	cout<<"\n------------------------\n";
   		cout<<"\n1: Matricular aluno";
   		cout<<"\n2: Consultar alunos";
+  		cout<<"\n3: Adicionar nota dos alunos";
+  		cout<<"\n4: Registro de frequencia dos alunos";
+  		cout<<"\n5: Menu do aluno";	//Alterar informacoes de um aluno especifico(nome, num, adicionar falta, alterar nota...)
+  		cout<<"\n6: Remover aluno";
+  		
+  		cout<<"\n7: Adicionar avaliacao";
+  		cout<<"\n8: Consultar informacoes avaliacoes";
+  		cout<<"\n9: Remover avaliacao";
+  		cout<<"\n10: Alterar informacoes da avaliacao";
+  		
   		cout<<"\n0: Voltar";
 	  	do{
   			cin>>op;
-		}while(op<0 || op >2);
+		}while(op<0 || op >10);
 	
 		if(op == 1)
 		{	
@@ -145,6 +121,52 @@ void menuDisciplina(disciplina* disc)
 		{
 			cout<<"\nAlunos Matriculados:";
 			printRefAluno(disc->info.alunos);
+		}
+		
+		
+		
+		if(op == 6)	//Remover aluno
+		{
+			char nomeAluno[50];
+			printRefAluno(disc->info.alunos);
+			cout<<"\nInforme o nome do aluno";
+			cin>>nomeAluno;
+			removeAluno(disc->info.alunos, nomeAluno);
+		}
+		
+		if(op == 7)	//Add aval
+		{
+			if(disc->info.qnt_provas + disc->info.qnt_trab < 14)
+			{
+				avaliacao novaInfo;
+				novaInfo = novaAvaliacao();
+				elem_avaliacao* temp = new elem_avaliacao();
+				temp = novoElemAv(&novaInfo);
+			
+				addAvaliacao(disc->info.avaliacoes, temp);
+				if(temp->info.tipo == 't' || temp->info.tipo == 'T')
+					disc->info.qnt_trab++;
+				else if(temp->info.tipo == 'p' || temp->info.tipo == 'P')
+					disc->info.qnt_provas;
+			}
+			
+			else
+				cout<<"\nAvaliacoes atingiram seu maximo!";
+		}
+		
+		if(op == 8)	//Consultar avaliacoes
+		{
+			printListAval(disc->info.avaliacoes);
+		}
+		
+		if(op == 9) //Remover avaliacao
+		{
+			char nome[15];
+			printRefAval(disc->info.avaliacoes);
+			cout<<"\nInforme o nome da avaliacao";
+			cin>>nome;
+			
+			removeAval(disc->info.avaliacoes, nome);
 		}
 	
 		if(!op)	on = 0;
