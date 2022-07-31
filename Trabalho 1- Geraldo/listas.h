@@ -140,9 +140,7 @@ void iniciaAluno(list_aluno*);
 void addAluno(list_aluno*, elem_aluno*);
 void removeAluno(list_aluno*, char*);
 void printListAluno(list_aluno*);
-void printListAlunoArq(list_aluno*, char*);
 elem_aluno* novoElemAluno(aluno*);
-void backupAluno(list_aluno* l);
 int contemAluno(list_aluno* d, char nomeAluno[]);
 elem_aluno* buscaAluno(list_aluno* l, char nomeAluno[]);
 void printRefAluno(list_aluno* l);
@@ -156,8 +154,6 @@ void addDisc(list_disc* l, disciplina* elem);
 void removeDisc(list_disc* l, char codigo[]);
 void printRefDisc(list_disc* l);
 void printListDisc(list_disc* l);
-void printListDiscArq(list_disc* l, char arqName[]);
-void backupDisc(list_disc* l);
 int contemDisc(list_disc* l, char codDisc[]);
 disciplina* buscaDisc(list_disc* l, char codDisc[]);
 
@@ -168,8 +164,7 @@ int VaziaAu(list_aula* l);
 void addAula(list_aula* l, elem_aula* elem);
 void removeAula(list_aula* l, int n);
 void printListAula(list_aula* l);
-void printListAulaArq(list_aula* l, char arqName[]);
-void backupAula(list_aula* l);
+void printRefAula(list_aula* l);
 
 //Avaliacao
 int VaziaAv(list_avaliacao* l);
@@ -177,7 +172,6 @@ void iniciaAval(list_avaliacao* l);
 void addAvaliacao(list_avaliacao* l, elem_avaliacao* elem);
 void removeAval(list_avaliacao* l, char nome[]);
 void printListAval(list_avaliacao* l);
-void printListAvalArq(list_avaliacao* l, char arqName[]);
 elem_avaliacao* novoElemAv(avaliacao* a);
-void backupAval(list_avaliacao* l);
 void printRefAval(list_avaliacao* l);
+elem_avaliacao* buscaAval(list_avaliacao *l, char nomeAval[]);

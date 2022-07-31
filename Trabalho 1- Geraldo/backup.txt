@@ -1,0 +1,116 @@
+void printListAlunoArq(list_aluno* l, char arqName[])
+{
+	if(VaziaAl(l))
+	{
+		cout<<"Lista vazia!\n";
+	}
+		
+	else
+	{
+		FILE* arq;
+		arq = fopen(arqName, "w");
+		elem_aluno* aux = l->inicio;
+		int i = 0;
+		while(aux)
+		{
+			fprintf(arq, "%d\n", aux->info.num);
+			fprintf(arq, "%s\n", aux->info.nome);
+			while(aux->info.notas[i] != '\0')
+			{
+				fprintf(arq, "%f\n", aux->info.notas[i]);
+				i++;
+			}
+			fprintf(arq, "%d\n", i);
+			fprintf(arq, "%f\n", aux->info.exame);
+			fprintf(arq, "%f\n", aux->info.media_final);
+			i = 0;
+			while(aux->info.freq[i] != '\0')
+			{
+				fprintf(arq, "%c\n", aux->info.freq[i]);
+				i++;
+			}
+			fprintf(arq, "%d\n", i);
+			
+			aux = aux->prox;
+		}
+		fclose(arq);
+	}
+}	
+
+//Backup do arquivo
+void backupAluno(list_avaliacao* l)
+{
+	FILE* arq;
+	arq = fopen("teste.txt", "r");
+	while(!feof(arq))
+	{
+		avaliacao aux;	
+		
+		//Ver como vai fazer a leitura de vetores
+		
+		fscanf(arq, "%d\n%50[^\n]\n%c\n%d\n%d\n%d\n", &aux.nome,&aux.tipo,&aux.data.dia,&aux.data.mes,&aux.data.ano,&aux.peso);
+		elem_avaliacao* elem =  novoElemAv(&aux);
+		addAvaliacao(l, elem);
+	}
+	fclose(arq);
+	
+}
+
+
+
+
+//Backup do arquivo
+/*void backupDisc(list_disc* l)
+{
+	FILE* arq;
+	arq = fopen("teste.txt", "r");
+	while(!feof(arq))
+	{
+		avaliacao aux;	//%50[^\n] --> 50 = num max de char// input de strign com espaï¿½o
+		fscanf(arq, "%50[^\n]\n%c\n%d\n%d\n%d\n%d\n", &aux.nome,&aux.tipo,&aux.data.dia,&aux.data.mes,&aux.data.ano,&aux.peso);
+		elem_avaliacao* elem =  novoElemAv(&aux);
+		addAvaliacao(l, elem);
+	}
+	fclose(arq);
+	
+}
+
+
+
+
+
+
+//Backup do arquivo
+void backupAula(list_aula* l)
+{
+	FILE* arq;
+	arq = fopen("teste.txt", "r");
+	while(!feof(arq))
+	{
+		aula aux;	//%50[^\n] --> 50 = num max de char// input de strign com espaï¿½o
+		fscanf(arq, "%d\n%d\n%d\n%d\n%d\n%50[^\n]\n", &aux.num,&aux.data.dia,&aux.data.mes,&aux.data.ano,&aux.qnt_horas, &aux.conteudo);
+		elem_aula* elem =  novoElemAula(&aux);
+		addAula(l, elem);
+	}
+	fclose(arq);
+}
+
+
+
+
+
+//Backup do arquivo
+void backupAval(list_avaliacao* l)
+{
+	FILE* arq;
+	arq = fopen("teste.txt", "r");
+	while(!feof(arq))
+	{
+		avaliacao aux;	//%50[^\n] --> 50 = num max de char// input de strign com espaï¿½o
+		fscanf(arq, "%50[^\n]\n%c\n%d\n%d\n%d\n%d\n", &aux.nome,&aux.tipo,&aux.data.dia,&aux.data.mes,&aux.data.ano,&aux.peso);
+		elem_avaliacao* elem =  novoElemAv(&aux);
+		addAvaliacao(l, elem);
+	}
+	fclose(arq);
+	
+}

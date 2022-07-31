@@ -55,9 +55,9 @@ void removeAluno(list_aluno* l, char nome[])
 {
 	elem_aluno* aux = l->inicio;
 	elem_aluno* ant;
-	int achou = 0;
+	int achou = 0, i = 0;
 	
-	while(aux)
+	while(l->qnt > i)
 	{
 		if(compStr(aux->info.nome, nome))
 		{
@@ -66,6 +66,7 @@ void removeAluno(list_aluno* l, char nome[])
 		}
 		ant = aux;
 		aux = aux->prox;
+		i++;
 	}
 	
 	
@@ -102,79 +103,22 @@ void removeAluno(list_aluno* l, char nome[])
 //Print na tela
 void printListAluno(list_aluno* l)
 {
+	int i = 0;
 	if(VaziaAl(l))
 	{
 		cout<<"Lista vazia!\n";
 	}
-		
+	
 	else
 	{
 		elem_aluno* aux = l->inicio;
-		while(aux)
+		while(l->qnt > i)
 		{
 			//printAluno(aux->info);
 			aux = aux->prox;
+			i++;
 		}
 	}
-}
-
-//Print no arquivo
-void printListAlunoArq(list_aluno* l, char arqName[])
-{
-	if(VaziaAl(l))
-	{
-		cout<<"Lista vazia!\n";
-	}
-		
-	else
-	{
-		FILE* arq;
-		arq = fopen(arqName, "w");
-		elem_aluno* aux = l->inicio;
-		int i = 0;
-		while(aux)
-		{
-			fprintf(arq, "%d\n", aux->info.num);
-			fprintf(arq, "%s\n", aux->info.nome);
-			while(aux->info.notas[i] != '\0')
-			{
-				fprintf(arq, "%f\n", aux->info.notas[i]);
-				i++;
-			}
-			fprintf(arq, "%d\n", i);
-			fprintf(arq, "%f\n", aux->info.exame);
-			fprintf(arq, "%f\n", aux->info.media_final);
-			i = 0;
-			while(aux->info.freq[i] != '\0')
-			{
-				fprintf(arq, "%c\n", aux->info.freq[i]);
-				i++;
-			}
-			fprintf(arq, "%d\n", i);
-			
-			aux = aux->prox;
-		}
-		fclose(arq);
-	}
-}	
-
-//Backup do arquivo
-void backupAluno(list_avaliacao* l)
-{
-	FILE* arq;
-	arq = fopen("teste.txt", "r");
-	while(!feof(arq))
-	{
-		avaliacao aux;	
-		
-		//Ver como vai fazer a leitura de vetores
-		
-		fscanf(arq, "%d\n%50[^\n]\n%c\n%d\n%d\n%d\n", &aux.nome,&aux.tipo,&aux.data.dia,&aux.data.mes,&aux.data.ano,&aux.peso);
-		elem_avaliacao* elem =  novoElemAv(&aux);
-		addAvaliacao(l, elem);
-	}
-	fclose(arq);
-	
 }
 
 int contemAluno(list_aluno* l, char nomeAluno[])
@@ -186,12 +130,13 @@ int contemAluno(list_aluno* l, char nomeAluno[])
 	{
 		elem_aluno* aux = new elem_aluno();
 		aux = l->inicio;
-		
-		while(aux)
+		int i=0;
+		while(l->qnt > i)
 		{
 			if(compStr(aux->info.nome, nomeAluno))
 				return 1;
 			aux = aux->prox;
+			i++;
 		}
 	}
 	return 0;
@@ -203,12 +148,13 @@ elem_aluno* buscaAluno(list_aluno* l, char nomeAluno[])
 	{
 		elem_aluno* aux = new elem_aluno();
 		aux = l->inicio;
-		
-		while(aux)
+		int i = 0;
+		while(l->qnt > i)
 		{
 			if(compStr(aux->info.nome, nomeAluno))
 				return aux;
 			aux = aux->prox;
+			i++;
 		}
 	}	
 	else 
@@ -219,13 +165,14 @@ void printRefAluno(list_aluno* l)
 {
 	elem_aluno* aux = new elem_aluno();
 	aux = l->inicio;
-	
+	int i = 0;
 	if(!VaziaAl(l))
 	{
-		while(aux)
+		while(l->qnt > i)
 		{
 			cout<<"\n\t"<<aux->info.nome;
 			aux = aux->prox;
+			i++;
 		}		
 	}
 }
@@ -280,9 +227,9 @@ void removeAula(list_aula* l, int n)
 {
 	elem_aula* aux = l->inicio;
 	elem_aula* ant;
-	int achou = 0;
+	int achou = 0, i = 0;
 	
-	while(aux)
+	while(l->qnt > i)	//Se a lista esta vazia aux == NULL, portanto nada acontece
 	{
 		if(aux->info.num == n)
 		{
@@ -291,6 +238,7 @@ void removeAula(list_aula* l, int n)
 		}
 		ant = aux;
 		aux = aux->prox;
+		i++;
 	}
 	
 	
@@ -325,65 +273,41 @@ void removeAula(list_aula* l, int n)
 
 void printListAula(list_aula* l)
 {
+	int i = 0;
 	if(VaziaAu(l))
 	{
 		cout<<"Lista vazia!\n";
 	}
-		
+	
 	else
 	{
 		elem_aula* aux = l->inicio;
-		while(aux)
+		while(l->qnt > i)
 		{
 			printAula(aux->info);
 			aux = aux->prox;
+			i++;
 		}
 	}
 }
 
-//Print no arquivo
-void printListAulaArq(list_aula* l, char arqName[])
+
+void printRefAula(list_aula* l)
 {
 	if(VaziaAu(l))
+		return;
+	elem_aula* aux = new elem_aula();
+	aux = l->inicio;
+	int i = 0;
+	while(l->qnt > i)
 	{
-		cout<<"Lista vazia!\n";
+		cout<<"Aula "<<aux->info.num<<" ";
+		printData(aux->info.data);
+		aux = aux->prox;
+		i++;
+		cout<<"\n";
 	}
-		
-	else
-	{
-		FILE* arq;
-		arq = fopen(arqName, "w");
-		elem_aula* aux = l->inicio;
-		while(aux)
-		{
-			
-			fprintf(arq, "%d\n", aux->info.num);
-			fprintf(arq, "%d\n", aux->info.data.dia);
-			fprintf(arq, "%d\n", aux->info.data.mes);
-			fprintf(arq, "%d\n", aux->info.data.ano);
-			fprintf(arq, "%d\n", aux->info.qnt_horas);
-			fprintf(arq, "%s\n", aux->info.conteudo);
-			aux = aux->prox;
-		}
-		fclose(arq);
-	}
-}	
-
-//Backup do arquivo
-void backupAula(list_aula* l)
-{
-	FILE* arq;
-	arq = fopen("teste.txt", "r");
-	while(!feof(arq))
-	{
-		aula aux;	//%50[^\n] --> 50 = num max de char// input de strign com espa�o
-		fscanf(arq, "%d\n%d\n%d\n%d\n%d\n%50[^\n]\n", &aux.num,&aux.data.dia,&aux.data.mes,&aux.data.ano,&aux.qnt_horas, &aux.conteudo);
-		elem_aula* elem =  novoElemAula(&aux);
-		addAula(l, elem);
-	}
-	fclose(arq);
 }
-
 
 /////////////////////////////////////
 //Avaliacao//////////////////////////
@@ -434,9 +358,9 @@ void removeAval(list_avaliacao* l, char nome[])
 {
 	elem_avaliacao* aux = l->inicio;
 	elem_avaliacao* ant;
-	int achou = 0;
+	int achou = 0, i = 0;
 	
-	while(aux)
+	while(l->qnt > i)
 	{
 		if(compStr(aux->info.nome, nome))
 		{
@@ -445,6 +369,7 @@ void removeAval(list_avaliacao* l, char nome[])
 		}
 		ant = aux;
 		aux = aux->prox;
+		i++;
 	}
 	
 	
@@ -481,11 +406,30 @@ void printRefAval(list_avaliacao* l)
 {
 	elem_avaliacao* aux = new elem_avaliacao();
 	aux = l->inicio;
-	while(aux)
+	int i = 0;
+	while(l->qnt > i)
 	{
 		cout<<" "<<aux->info.nome;
 		aux = aux->prox;
+		i++;
 	}
+}
+
+elem_avaliacao* buscaAval(list_avaliacao *l, char nomeAval[])
+{
+	elem_avaliacao* aux = l->inicio;
+	
+	if(VaziaAv(l))
+		return NULL;
+	int i =0;
+	while(l->qnt > i)
+	{
+		if(compStr(aux->info.nome, nomeAval))
+			return aux;
+		aux = aux->prox;
+		i++;
+	}
+	return NULL;
 }
 
 
@@ -506,49 +450,6 @@ void printListAval(list_avaliacao* l)
 			aux = aux->prox;
 		}
 	}
-}
-
-//Print no arquivo
-void printListAvalArq(list_avaliacao* l, char arqName[])
-{
-	if(VaziaAv(l))
-	{
-		cout<<"Lista vazia!\n";
-	}
-		
-	else
-	{
-		FILE* arq;
-		arq = fopen(arqName, "w");
-		elem_avaliacao* aux = l->inicio;
-		while(aux)
-		{
-			fprintf(arq, "%s\n", aux->info.nome);
-			fprintf(arq, "%c\n", aux->info.tipo);
-			fprintf(arq, "%d\n", aux->info.data.dia);
-			fprintf(arq, "%d\n", aux->info.data.mes);
-			fprintf(arq, "%d\n", aux->info.data.ano);
-			fprintf(arq, "%d\n", aux->info.peso);
-			aux = aux->prox;
-		}
-		fclose(arq);
-	}
-}	
-
-//Backup do arquivo
-void backupAval(list_avaliacao* l)
-{
-	FILE* arq;
-	arq = fopen("teste.txt", "r");
-	while(!feof(arq))
-	{
-		avaliacao aux;	//%50[^\n] --> 50 = num max de char// input de strign com espa�o
-		fscanf(arq, "%50[^\n]\n%c\n%d\n%d\n%d\n%d\n", &aux.nome,&aux.tipo,&aux.data.dia,&aux.data.mes,&aux.data.ano,&aux.peso);
-		elem_avaliacao* elem =  novoElemAv(&aux);
-		addAvaliacao(l, elem);
-	}
-	fclose(arq);
-	
 }
 
 
@@ -608,9 +509,9 @@ void removeDisc(list_disc * l, char codigo[])
 {
 	disciplina* aux = l->inicio;
 	disciplina* ant;
-	int achou = 0;
+	int achou = 0, i = 0;
 	
-	while(aux)
+	while(l->qnt > i)
 	{
 		if(compStr(aux->info.codigo, codigo))
 		{
@@ -620,6 +521,7 @@ void removeDisc(list_disc * l, char codigo[])
 		}
 		ant = aux;
 		aux = aux->prox;
+		i++;
 	}
 	
 	
@@ -654,7 +556,8 @@ void removeDisc(list_disc * l, char codigo[])
 
 //Print na tela
 void printRefDisc(list_disc* l)
-{
+{	
+	int i = 0;
 	if(VaziaDisc(l))
 	{
 		cout<<"Lista vazia!\n";
@@ -663,16 +566,18 @@ void printRefDisc(list_disc* l)
 	else
 	{
 		disciplina* aux = l->inicio;
-		while(aux)
+		while(l->qnt > i)
 		{
 			cout<<aux->info.codigo<<"\n";
 			aux = aux->prox;
+			i++;
 		}
 	}
 }
 
 void printListDisc(list_disc* l)
 {
+	int i = 0;
 	if(VaziaDisc(l))
 	{
 		cout<<"Lista vazia!\n";
@@ -681,68 +586,14 @@ void printListDisc(list_disc* l)
 	else
 	{
 		disciplina* aux = l->inicio;
-		while(aux)
+		while(l->qnt > i)
 		{
 			printDisc(aux->info);
 			aux = aux->prox;
+			i++;
 		}
 	}
 }
-
-//Print no arquivo
-void printListDiscArq(list_disc* l, char arqName[])
-{
-	if(VaziaDisc(l))
-	{
-		cout<<"Lista vazia!\n";
-	}
-		
-	else
-	{
-		FILE* arq;
-		arq = fopen(arqName, "w");
-		disciplina* aux = l->inicio;
-		while(aux)
-		{
-			fprintf(arq, "%s\n", aux->info.codigo);
-			fprintf(arq, "%s\n", aux->info.nome);
-			fprintf(arq, "%d\n", aux->info.ano);
-			fprintf(arq, "%d\n", aux->info.semestre);
-			fprintf(arq, "%d\n", aux->info.qnt_alunos);
-			fprintf(arq, "%d\n", aux->info.qnt_provas);
-      		fprintf(arq, "%d\n", aux->info.qnt_trab);
-	      	fprintf(arq, "%d\n", aux->info.carga_prev);
-    	  	fprintf(arq, "%d\n", aux->info.carga_real);
-	      	fprintf(arq, "%f\n", aux->info.nota_aprov);
-    	  	fprintf(arq, "%d\n", aux->info.freq);
-      		
-      		//printListAvalArq(aux->info.avaliacoes, arq);
-      		//printListAulaArq(aux->info.aulas, arq);
-        	//printListAlunoArq(aux->info.alunos, arq);
-       
-			aux = aux->prox;
-		}
-		fclose(arq);
-	}
-}	
-
-
-
-//Backup do arquivo
-/*void backupDisc(list_disc* l)
-{
-	FILE* arq;
-	arq = fopen("teste.txt", "r");
-	while(!feof(arq))
-	{
-		avaliacao aux;	//%50[^\n] --> 50 = num max de char// input de strign com espa�o
-		fscanf(arq, "%50[^\n]\n%c\n%d\n%d\n%d\n%d\n", &aux.nome,&aux.tipo,&aux.data.dia,&aux.data.mes,&aux.data.ano,&aux.peso);
-		elem_avaliacao* elem =  novoElemAv(&aux);
-		addAvaliacao(l, elem);
-	}
-	fclose(arq);
-	
-}*/
 
 int contemDisc(list_disc* l, char codDisc[])
 {
@@ -752,11 +603,13 @@ int contemDisc(list_disc* l, char codDisc[])
 	{
 		disciplina* aux = new disciplina();
 		aux = l->inicio;
-		while(aux)
+		int i = 0;
+		while(l->qnt > i)
 		{
 			if(compStr(aux->info.codigo, codDisc))
 				return 1;
 			aux = aux->prox;
+			i++;
 		}
 	}
 }
@@ -765,14 +618,15 @@ disciplina* buscaDisc(list_disc* l, char codDisc[])
 {
 	disciplina* aux = new disciplina();
 	aux = l->inicio;
-	
+	int i = 0;
 	if(contemDisc(l, codDisc))
 	{
-		while(aux)
+		while(l->qnt > i)
 		{
 			if(compStr(aux->info.codigo, codDisc))
 				return aux;
 			aux = aux->prox;
+			i++;
 		}
 			
 	}
@@ -1063,5 +917,100 @@ void printProf(professor p)
     cout<"\nNota do exame: "<<a.exame;
   for (int i=0; i<)
 }*/
+
+
+///////////////////////////////////////////
+//Arquivos/////////////////////////////////
+///////////////////////////////////////////
+
+//Print
+void printArq(list_disc* l, professor prof)
+{
+	FILE* arqP = fopen("professor.txt", "w");
+	fprintf(arqP, "%s %d", prof.nome, prof.qnt_disc);
+	fclose(arqP);
+	
+	elem_disc aux = new elem_disc();
+	aux = l->inicio;
+	
+	int i = 0;
+	
+	char txt[5] = ".txt";
+	char nomeArq[20] = "disciplina";
+	while(l->qnt > i)
+	{	
+		char ic = (i+49)+'0';
+		nomeArq[11] = ic;
+		strcat(nomeArq, txt);
+		
+		FILE* arq = fopen(nomeArq, "w");
+		fprintf(arq, "%s\n", aux->info.codigo);
+		fprintf(arq, "%s\n", aux->info.nome);
+		fprintf(arq, "%d\n", aux->info.ano);
+		fprintf(arq, "%d\n", aux->info.semestre);
+		fprintf(arq, "%d\n", aux->info.qnt_alunos);
+		fprintf(arq, "%d\n", aux->info.qnt_provas);
+   		fprintf(arq, "%d\n", aux->info.qnt_trab);
+      	fprintf(arq, "%d\n", aux->info.carga_prev);
+   	  	fprintf(arq, "%d\n", aux->info.carga_real);
+      	fprintf(arq, "%f\n", aux->info.nota_aprov);
+   	  	fprintf(arq, "%d\n", aux->info.freq);
+   	  	
+		int j = 0;
+		fprintf(arq, "%d", aux->info.avaliacoes->qnt);
+		elem_avaliacao* auxAv = new elem_avaliacao();
+		auxAv = aux->info.avaliacoes->inicio;
+   	  	while(aux->info.avaliacoes->qnt > j)
+   	  	{
+   	  		fprintf(arq, "%s\n", auxAv->info.nome);
+			fprintf(arq, "%c\n", auxAv->info.tipo);
+			fprintf(arq, "%d\n", auxAv->info.data.dia);
+			fprintf(arq, "%d\n", auxAv->info.data.mes);
+			fprintf(arq, "%d\n", auxAv->info.data.ano);
+			fprintf(arq, "%d\n", auxAv->info.peso);
+			auxAv = auxAv->prox;
+			j++;
+		}
+		
+		j = 0;
+		fprintf(arq, "%d", aux->info.aulas->qnt);
+		elem_aula* auxAula = new elem_aula();
+		auxAula = aux->info.aulas->inicio;
+		while(aux->info.aulas->qnt > j)
+		{
+			fprintf(arq, "%d\n", auxAula->info.num);
+			fprintf(arq, "%d\n", auxAula->info.data.dia);
+			fprintf(arq, "%d\n", auxAula->info.data.mes);
+			fprintf(arq, "%d\n", auxAula->info.data.ano);
+			fprintf(arq, "%d\n", auxAula->info.qnt_horas);
+			fprintf(arq, "%s\n", auxAula->info.conteudo);
+			auxAula = auxAula->prox;
+			j++;
+		}
+   	  	
+   	  	j = 0;
+		fprintf(arq, "%d", aux->info.alunos->qnt);
+		elem_aluno* auxAl = new elem_aluno();
+		auxAl = aux->info.alunos->inicio;
+		/*while(aux->info.alunos->qnt > j)
+		{
+					
+		}*/
+		
+		aux = aux->prox;
+		i++;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
 
 

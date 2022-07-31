@@ -92,14 +92,19 @@ void menuDisciplina(disciplina* disc)
   		cout<<"\n6: Remover aluno";
   		
   		cout<<"\n7: Adicionar avaliacao";
-  		cout<<"\n8: Consultar informacoes avaliacoes";
+  		cout<<"\n8: Consultar informacoes das avaliacoes";
   		cout<<"\n9: Remover avaliacao";
   		cout<<"\n10: Alterar informacoes da avaliacao";
+  		
+  		cout<<"\n11: Adicionar aula";
+  		cout<<"\n12: Consultar informacoes das aulas";
+  		cout<<"\n13: Remover aula";
+  		cout<<"\n14: Alterar informacoes da aula";
   		
   		cout<<"\n0: Voltar";
 	  	do{
   			cin>>op;
-		}while(op<0 || op >10);
+		}while(op<0 || op >14);
 	
 		if(op == 1)
 		{	
@@ -124,6 +129,8 @@ void menuDisciplina(disciplina* disc)
 		}
 		
 		
+		//Falta op 3, 4 e 5
+		
 		
 		if(op == 6)	//Remover aluno
 		{
@@ -132,6 +139,7 @@ void menuDisciplina(disciplina* disc)
 			cout<<"\nInforme o nome do aluno";
 			cin>>nomeAluno;
 			removeAluno(disc->info.alunos, nomeAluno);
+			disc->info.qnt_alunos--;
 		}
 		
 		if(op == 7)	//Add aval
@@ -147,7 +155,7 @@ void menuDisciplina(disciplina* disc)
 				if(temp->info.tipo == 't' || temp->info.tipo == 'T')
 					disc->info.qnt_trab++;
 				else if(temp->info.tipo == 'p' || temp->info.tipo == 'P')
-					disc->info.qnt_provas;
+					disc->info.qnt_provas++;
 			}
 			
 			else
@@ -162,12 +170,53 @@ void menuDisciplina(disciplina* disc)
 		if(op == 9) //Remover avaliacao
 		{
 			char nome[15];
+			elem_avaliacao* temp = new elem_avaliacao();
+			
 			printRefAval(disc->info.avaliacoes);
 			cout<<"\nInforme o nome da avaliacao";
 			cin>>nome;
 			
 			removeAval(disc->info.avaliacoes, nome);
+			
+			buscaAval(disc->info.avaliacoes, nome);
+			
+			if(temp->info.tipo == 't' || temp->info.tipo == 'T')
+				disc->info.qnt_trab--;
+			else if(temp->info.tipo == 'p' || temp->info.tipo == 'P')
+				disc->info.qnt_provas--;
 		}
+		
+		//Falta op 10
+		
+		if(op == 11)	//Add Aula
+		{
+			if(disc->info.aulas->qnt < 60)
+			{
+				aula info = novoAula();
+				info.num = disc->info.aulas->qnt+1;
+				elem_aula* temp = new elem_aula();
+				temp = novoElemAula(&info);
+				
+				addAula(disc->info.aulas, temp);
+			}
+			
+			else
+				cout<<"\nTodas as aulas ja foram dadas!";
+		}
+		
+		if(op == 12)	//Consultar aulas
+			printListAula(disc->info.aulas);
+			
+		if(op == 13)	//Remover aulas
+		{
+			int ref;
+			printRefAula(disc->info.aulas);
+			cout<<"\nInforme o numero da aulas a ser removida: ";
+			cin>>ref;
+			removeAula(disc->info.aulas, ref);
+		}
+		
+		//Falta op 14
 	
 		if(!op)	on = 0;
 	
@@ -181,10 +230,4 @@ void menuDisciplina(disciplina* disc)
   
   
 }
-/*
-void menuCadastro(){
-  cout<<"-----CADASTRAR-----\n";
-  cout<<"1: Disciplina\n";
-  cout<<"2: Aluno(a)\n";
-  cout<<"-------------------\n";
-}*/
+
